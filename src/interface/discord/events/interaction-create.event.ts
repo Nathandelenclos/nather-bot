@@ -3,6 +3,7 @@ import type { LogCommandUseCase } from '../../../application/command-log/index.j
 import type { ILogger } from '../../../domain/ports/logger.port.js';
 import type { IMetrics } from '../../../domain/ports/metrics.port.js';
 import type { CommandRegistry } from '../command-registry.js';
+import type { ComponentRegistry } from '../components/component-registry.js';
 import { checkPermission } from '../guards/permission.guard.js';
 import type { IDiscordEvent } from './base.event.js';
 
@@ -12,12 +13,23 @@ export class InteractionCreateEvent implements IDiscordEvent<'interactionCreate'
 
   constructor(
     private readonly commandRegistry: CommandRegistry,
+    private readonly componentRegistry: ComponentRegistry,
     private readonly logCommand: LogCommandUseCase,
     private readonly logger: ILogger,
     private readonly metrics: IMetrics,
   ) {}
 
   async execute(interaction: Interaction): Promise<void> {
+    if (
+      interaction.isChannelSelectMenu() ||
+      interaction.isStringSelectMenu() ||
+      interaction.isButton()
+    ) {
+      const handler = this.componentRegistry.get(interaction.customId);
+      if (handler) await handler.execute(interaction);
+      return;
+    }
+
     if (!interaction.isChatInputCommand()) return;
 
     const command = this.commandRegistry.get(interaction.commandName);

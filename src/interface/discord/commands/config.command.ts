@@ -1,4 +1,7 @@
 import {
+  ActionRowBuilder,
+  ChannelSelectMenuBuilder,
+  ChannelType,
   type ChatInputCommandInteraction,
   EmbedBuilder,
   PermissionFlagsBits,
@@ -21,6 +24,9 @@ export class ConfigCommand implements IDiscordCommand {
         .addStringOption((opt) =>
           opt.setName('value').setDescription('New prefix (max 5 chars)').setRequired(true),
         ),
+    )
+    .addSubcommand((sub) =>
+      sub.setName('welcome-channel').setDescription('Configurer le canal de bienvenue'),
     ) as SlashCommandBuilder;
 
   constructor(
@@ -38,6 +44,22 @@ export class ConfigCommand implements IDiscordCommand {
     }
 
     const subcommand = interaction.options.getSubcommand();
+
+    if (subcommand === 'welcome-channel') {
+      const selectMenu = new ChannelSelectMenuBuilder()
+        .setCustomId('welcome-channel-select')
+        .setPlaceholder('Sélectionner un canal de bienvenue')
+        .setChannelTypes(ChannelType.GuildText);
+
+      const row = new ActionRowBuilder<ChannelSelectMenuBuilder>().addComponents(selectMenu);
+
+      await interaction.reply({
+        content: 'Sélectionne le canal de bienvenue :',
+        components: [row],
+        ephemeral: true,
+      });
+      return;
+    }
 
     if (subcommand === 'prefix') {
       const value = interaction.options.getString('value', true);

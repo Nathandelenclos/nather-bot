@@ -1,5 +1,5 @@
 import { LogCommandUseCase } from './application/command-log/index.js';
-import { GetGuildConfigUseCase } from './application/guild/index.js';
+import { GetGuildConfigUseCase, UpdateWelcomeChannelUseCase } from './application/guild/index.js';
 import { UpsertGuildConfigUseCase } from './application/guild/index.js';
 import { AddPointsUseCase, GetOrCreateUserProfileUseCase } from './application/user/index.js';
 import { config } from './infrastructure/config/env.js';
@@ -15,8 +15,11 @@ import { CommandRegistry } from './interface/discord/command-registry.js';
 import { ConfigCommand } from './interface/discord/commands/config.command.js';
 import { HelpCommand } from './interface/discord/commands/help.command.js';
 import { PingCommand } from './interface/discord/commands/ping.command.js';
+import { ComponentRegistry } from './interface/discord/components/component-registry.js';
+import { WelcomeChannelSelectHandler } from './interface/discord/components/welcome-channel-select.handler.js';
 import { ErrorEvent } from './interface/discord/events/error.event.js';
 import { GuildCreateEvent } from './interface/discord/events/guild-create.event.js';
+import { GuildMemberAddEvent } from './interface/discord/events/guild-member-add.event.js';
 import { InteractionCreateEvent } from './interface/discord/events/interaction-create.event.js';
 import { ReadyEvent } from './interface/discord/events/ready.event.js';
 
@@ -35,6 +38,7 @@ export function buildContainer() {
   // Use cases
   const getGuildConfig = new GetGuildConfigUseCase(guildConfigRepo, logger);
   const upsertGuildConfig = new UpsertGuildConfigUseCase(guildConfigRepo, logger);
+  const updateWelcomeChannel = new UpdateWelcomeChannelUseCase(guildConfigRepo, logger);
   const getOrCreateUserProfile = new GetOrCreateUserProfileUseCase(userProfileRepo, logger);
   const addPoints = new AddPointsUseCase(userProfileRepo, logger);
   const logCommand = new LogCommandUseCase(commandLogRepo, logger, metrics);
@@ -45,11 +49,16 @@ export function buildContainer() {
   commandRegistry.register(new ConfigCommand(upsertGuildConfig, logger));
   commandRegistry.register(new HelpCommand(commandRegistry));
 
+  // Components
+  const componentRegistry = new ComponentRegistry();
+  componentRegistry.register(new WelcomeChannelSelectHandler(updateWelcomeChannel, logger));
+
   // Events
   const events = [
     new ReadyEvent(logger, metrics),
-    new InteractionCreateEvent(commandRegistry, logCommand, logger, metrics),
+    new InteractionCreateEvent(commandRegistry, componentRegistry, logCommand, logger, metrics),
     new GuildCreateEvent(upsertGuildConfig, logger, metrics),
+    new GuildMemberAddEvent(getGuildConfig, getOrCreateUserProfile, logger),
     new ErrorEvent(logger),
   ];
 
@@ -61,6 +70,13 @@ export function buildContainer() {
     metrics,
     prisma,
     // Expose use cases for potential future use (e.g., HTTP API)
-    useCases: { getGuildConfig, upsertGuildConfig, getOrCreateUserProfile, addPoints, logCommand },
+    useCases: {
+      getGuildConfig,
+      upsertGuildConfig,
+      updateWelcomeChannel,
+      getOrCreateUserProfile,
+      addPoints,
+      logCommand,
+    },
   };
 }
