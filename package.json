@@ -18,7 +18,8 @@
     "db:generate": "prisma generate",
     "db:seed": "tsx prisma/seed.ts",
     "db:studio": "prisma studio",
-    "deploy:commands": "tsx src/interface/scripts/deploy-commands.ts"
+    "deploy:commands": "tsx src/interface/scripts/deploy-commands.ts",
+    "arch:check": "depcruise --config .dependency-cruiser.cjs src"
   },
   "dependencies": {
     "@prisma/client": "^6.0.0",
@@ -31,10 +32,11 @@
     "@biomejs/biome": "^1.9.4",
     "@types/node": "^22.10.0",
     "@vitest/coverage-v8": "^2.1.8",
+    "dependency-cruiser": "^17.4.3",
     "prisma": "^6.0.0",
     "tsx": "^4.19.2",
     "typescript": "^5.7.2",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^2.1.8"
-  },
+  }
 }
