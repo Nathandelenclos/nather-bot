@@ -8,6 +8,7 @@ function toDomain(record: PrismaGuildConfig): GuildConfig {
   return GuildConfig.reconstitute({
     guildId: GuildId.reconstitute(record.guildId),
     prefix: Prefix.reconstitute(record.prefix),
+    welcomeChannelId: record.welcomeChannelId,
     createdAt: record.createdAt,
     updatedAt: record.updatedAt,
   });
@@ -26,8 +27,15 @@ export class GuildConfigPrismaRepository implements IGuildConfigRepository {
   async upsert(config: GuildConfig): Promise<GuildConfig> {
     const record = await this.prisma.guildConfig.upsert({
       where: { guildId: config.guildId.value },
-      update: { prefix: config.prefix.value },
-      create: { guildId: config.guildId.value, prefix: config.prefix.value },
+      update: {
+        prefix: config.prefix.value,
+        welcomeChannelId: config.welcomeChannelId,
+      },
+      create: {
+        guildId: config.guildId.value,
+        prefix: config.prefix.value,
+        welcomeChannelId: config.welcomeChannelId,
+      },
     });
     return toDomain(record);
   }
