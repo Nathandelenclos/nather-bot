@@ -13,6 +13,7 @@ import { UserProfilePrismaRepository } from './infrastructure/persistence/user/u
 import { Bot } from './interface/discord/bot.js';
 import { CommandRegistry } from './interface/discord/command-registry.js';
 import { ConfigCommand } from './interface/discord/commands/config.command.js';
+import { HelpCommand } from './interface/discord/commands/help.command.js';
 import { PingCommand } from './interface/discord/commands/ping.command.js';
 import { ErrorEvent } from './interface/discord/events/error.event.js';
 import { GuildCreateEvent } from './interface/discord/events/guild-create.event.js';
@@ -42,6 +43,7 @@ export function buildContainer() {
   const commandRegistry = new CommandRegistry();
   commandRegistry.register(new PingCommand(logger, metrics));
   commandRegistry.register(new ConfigCommand(upsertGuildConfig, logger));
+  commandRegistry.register(new HelpCommand(commandRegistry));
 
   // Events
   const events = [
