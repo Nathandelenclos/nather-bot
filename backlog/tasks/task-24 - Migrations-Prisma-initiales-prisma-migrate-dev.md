@@ -1,10 +1,10 @@
 ---
 id: TASK-24
 title: Migrations Prisma initiales (prisma migrate dev)
-status: In Progress
+status: Done
 assignee: []
 created_date: '2026-06-02 17:27'
-updated_date: '2026-06-02 18:14'
+updated_date: '2026-06-02 18:18'
 labels: []
 dependencies: []
 priority: high
