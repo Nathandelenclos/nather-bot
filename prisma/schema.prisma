@@ -1,0 +1,47 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// --- Guild ---
+
+model GuildConfig {
+  guildId   String   @id
+  prefix    String   @default("!")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("guild_configs")
+}
+
+// --- User ---
+
+model UserProfile {
+  userId    String
+  guildId   String
+  points    Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@id([userId, guildId])
+  @@map("user_profiles")
+}
+
+// --- Command Log ---
+
+model CommandLog {
+  id          String   @id @default(uuid())
+  guildId     String
+  userId      String
+  commandName String
+  executedAt  DateTime @default(now())
+
+  @@index([guildId])
+  @@index([userId])
+  @@map("command_logs")
+}
