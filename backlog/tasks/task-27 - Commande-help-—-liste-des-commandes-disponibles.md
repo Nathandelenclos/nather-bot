@@ -1,10 +1,10 @@
 ---
 id: TASK-27
 title: Commande /help — liste des commandes disponibles
-status: In Progress
+status: Done
 assignee: []
 created_date: '2026-06-02 17:27'
-updated_date: '2026-06-02 19:17'
+updated_date: '2026-06-02 19:21'
 labels: []
 dependencies: []
 priority: high
