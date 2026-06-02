@@ -1,0 +1,336 @@
+[
+  {
+    "name": "ansible-automation",
+    "description": "Roles Ansible, Molecule, Vault, inventaires, idempotence",
+    "tags": [
+      "ansible",
+      "configuration-management",
+      "molecule",
+      "vault",
+      "iac"
+    ],
+    "installed": false
+  },
+  {
+    "name": "argocd-gitops",
+    "description": "Argo CD, ApplicationSet, sync waves, structure repo GitOps, progressive delivery",
+    "tags": [
+      "gitops",
+      "argocd",
+      "applicationset",
+      "kubernetes"
+    ],
+    "installed": false
+  },
+  {
+    "name": "backend-api",
+    "description": "Patterns API, base de donnees, cache, resilience backend",
+    "tags": [
+      "backend",
+      "api",
+      "database",
+      "cache",
+      "code-quality"
+    ],
+    "installed": true
+  },
+  {
+    "name": "backlog-tracking",
+    "description": "Suivi des taches via Backlog.md — tracker markdown-native versionne Git",
+    "tags": [
+      "backlog",
+      "tracking",
+      "tasks",
+      "project-management",
+      "delivery"
+    ],
+    "installed": true
+  },
+  {
+    "name": "bdd-workflow",
+    "description": "Cycle craft complet — need → brainstorm → task → plan → build → review → accept/deny",
+    "tags": [
+      "bdd",
+      "testing",
+      "workflow",
+      "specification",
+      "craft"
+    ],
+    "installed": true
+  },
+  {
+    "name": "ci-cd-pipelines",
+    "description": "Patterns pipeline CI/CD — GitHub Actions, GitLab CI, stages, artifacts, runners",
+    "tags": [
+      "ci-cd",
+      "pipeline",
+      "github-actions",
+      "gitlab-ci",
+      "delivery"
+    ],
+    "installed": false
+  },
+  {
+    "name": "clean-architecture",
+    "description": "Separation des couches, dependency rule, architecture en couches concentriques",
+    "tags": [
+      "architecture",
+      "clean-code",
+      "layers",
+      "dependency-rule",
+      "code-quality"
+    ],
+    "installed": true
+  },
+  {
+    "name": "clean-architecture-uncle-bob",
+    "description": "Clean Architecture Robert C. Martin — Entities, Use Cases, Boundaries, Dependency Rule",
+    "tags": [
+      "architecture",
+      "clean-architecture",
+      "uncle-bob",
+      "boundaries",
+      "code-quality"
+    ],
+    "installed": false
+  },
+  {
+    "name": "clean-code",
+    "description": "Immutabilite, nommage, organisation fichiers, standards par langage, lint automatique",
+    "tags": [
+      "clean-code",
+      "coding-standards",
+      "lint",
+      "refactoring",
+      "code-quality"
+    ],
+    "installed": true
+  },
+  {
+    "name": "cloud-cost-optimization",
+    "description": "Cost optimization, rightsizing, tagging obligatoire, reserved instances, Savings Plans",
+    "tags": [
+      "finops",
+      "cost",
+      "tagging",
+      "optimization",
+      "cloud"
+    ],
+    "installed": false
+  },
+  {
+    "name": "cloud-landing-zones",
+    "description": "Organisation multi-compte, guardrails, networking, security baseline cloud",
+    "tags": [
+      "landing-zone",
+      "multi-account",
+      "security",
+      "networking",
+      "guardrails",
+      "cloud"
+    ],
+    "installed": false
+  },
+  {
+    "name": "continuous-verification",
+    "description": "Boucle de verification continue — lint, type check, test, build apres chaque changement",
+    "tags": [
+      "verification",
+      "ci",
+      "feedback-loop",
+      "testing"
+    ],
+    "installed": true
+  },
+  {
+    "name": "deployment-strategy",
+    "description": "Blue/green, canary, rolling, progressive delivery, feature flags, rollback",
+    "tags": [
+      "deployment",
+      "blue-green",
+      "canary",
+      "rolling",
+      "progressive-delivery",
+      "delivery"
+    ],
+    "installed": false
+  },
+  {
+    "name": "design-system",
+    "description": "Atomic Design, design tokens, composants reutilisables, Storybook",
+    "tags": [
+      "design-system",
+      "atomic-design",
+      "tokens",
+      "storybook",
+      "components",
+      "design"
+    ],
+    "installed": false
+  },
+  {
+    "name": "domain-purity",
+    "description": "Zero dependance externe dans le domaine metier — DDD strict, separation couches",
+    "tags": [
+      "ddd",
+      "architecture",
+      "domain",
+      "purity",
+      "code-quality"
+    ],
+    "installed": true
+  },
+  {
+    "name": "dora-metrics",
+    "description": "DORA metrics — Lead Time, Deployment Frequency, MTTR, Change Failure Rate",
+    "tags": [
+      "dora",
+      "metrics",
+      "devops",
+      "measurement",
+      "delivery"
+    ],
+    "installed": false
+  },
+  {
+    "name": "frontend-components",
+    "description": "Patterns React, Vue, composants, state management, performance frontend",
+    "tags": [
+      "frontend",
+      "react",
+      "vue",
+      "components",
+      "design"
+    ],
+    "installed": true
+  },
+  {
+    "name": "git-workflow",
+    "description": "Conventional commits, branches courtes, never commit on red, pas de Co-Authored-By IA",
+    "tags": [
+      "git",
+      "workflow",
+      "commits",
+      "pr",
+      "delivery"
+    ],
+    "installed": true
+  },
+  {
+    "name": "helm-charts",
+    "description": "Charts Helm, templating avance, values par environnement, dependencies, library charts",
+    "tags": [
+      "helm",
+      "charts",
+      "templating",
+      "kubernetes"
+    ],
+    "installed": false
+  },
+  {
+    "name": "hexagonal-architecture",
+    "description": "Ports & Adapters (Cockburn / Colin Damon) — domaine au centre, interfaces dans le domaine",
+    "tags": [
+      "architecture",
+      "hexagonal",
+      "ports-and-adapters",
+      "ddd",
+      "code-quality"
+    ],
+    "installed": false
+  },
+  {
+    "name": "kubernetes-workloads",
+    "description": "Workloads Kubernetes, security (PSS, NetworkPolicy, RBAC), probes, resource limits, troubleshooting",
+    "tags": [
+      "kubernetes",
+      "k8s",
+      "security",
+      "workloads",
+      "troubleshooting"
+    ],
+    "installed": false
+  },
+  {
+    "name": "multi-cloud-services",
+    "description": "Patterns multi-cloud AWS/GCP/Azure — compute, storage, networking, managed services",
+    "tags": [
+      "cloud",
+      "aws",
+      "gcp",
+      "azure",
+      "multi-cloud"
+    ],
+    "installed": false
+  },
+  {
+    "name": "secret-management",
+    "description": "Gestion des secrets en pipeline — rotation, vault, sealed secrets, pas de hardcode",
+    "tags": [
+      "security",
+      "secrets",
+      "vault",
+      "pipeline"
+    ],
+    "installed": false
+  },
+  {
+    "name": "security-basics",
+    "description": "Checklist securite obligatoire — secrets, injection, auth, XSS, CSRF",
+    "tags": [
+      "security",
+      "audit",
+      "checklist"
+    ],
+    "installed": true
+  },
+  {
+    "name": "terraform-modules",
+    "description": "Modules Terraform/OpenTofu, state management, testing IaC, standards HCL",
+    "tags": [
+      "terraform",
+      "opentofu",
+      "iac",
+      "modules",
+      "testing"
+    ],
+    "installed": false
+  },
+  {
+    "name": "testing-strategy",
+    "description": "Pyramide de tests BDD-first, TDD cible, tests d'architecture, 80% coverage",
+    "tags": [
+      "testing",
+      "bdd",
+      "tdd",
+      "cucumber",
+      "playwright"
+    ],
+    "installed": true
+  },
+  {
+    "name": "trunk-based-dev",
+    "description": "Branches courtes (< 24h), merge frequent, feature flags, pas de GitFlow",
+    "tags": [
+      "git",
+      "branching",
+      "trunk-based",
+      "feature-flags",
+      "delivery"
+    ],
+    "installed": false
+  },
+  {
+    "name": "ux-design",
+    "description": "Principes UX/UI design-first, accessibilite WCAG/RGAA, heuristiques Nielsen, Laws of UX",
+    "tags": [
+      "ux",
+      "ui",
+      "accessibility",
+      "wcag",
+      "design-first",
+      "design"
+    ],
+    "installed": false
+  }
+]
