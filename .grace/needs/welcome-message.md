@@ -1,7 +1,7 @@
 ---
 slug: welcome-message
 date_creation: 2026-06-02
-statut: ready-to-dev
+statut: done
 backlog_task_id: TASK-29
 ---
 
@@ -127,10 +127,19 @@ Nouveau membre (déclencheur), administrateur (configuration).
 - `src/container.ts` — câblage
 
 ### PRs
-(à remplir)
+N/A (commits directs)
 
 ### Tests exécutés
-(à remplir)
+- depcruise : 0 violation (117 modules, 267 deps)
+- vitest : 23/23 GREEN (4 use case + 3 event + 16 existants)
+- biome : 0 erreur
+- tsc : 0 erreur
+
+### Observations QA (non-bloquantes)
+- [MEDIUM] `void getOrCreateUserProfile.execute()` sans error handler — erreurs DB silencieuses
+- [MEDIUM] Off-by-one couleur : `0xffffff` → manque blanc pur (`0xFFFFFF + 1` requis selon spec)
+- [LOW] Test `send` rejection (graceful bot sans permission) absent
+- [LOW] `isTextBased()` accepte threads/DM — spec demande `GuildText` strict
 
 ### Date de réalisation
-(à remplir au merge)
+2026-06-02

@@ -15,11 +15,16 @@ export class GuildMemberAddEvent implements IDiscordEvent<'guildMemberAdd'> {
   ) {}
 
   async execute(member: GuildMember): Promise<void> {
-    // Toujours créer le profil
-    void this.getOrCreateUserProfile.execute({
-      userId: member.id,
-      guildId: member.guild.id,
-    });
+    // Toujours créer le profil (fire-and-forget avec log si échec)
+    this.getOrCreateUserProfile
+      .execute({ userId: member.id, guildId: member.guild.id })
+      .then((r) => {
+        if (!r.ok)
+          this.logger.warn('Failed to create user profile on join', { error: r.error.message });
+      })
+      .catch((err: unknown) => {
+        this.logger.error('Unexpected error creating user profile', { err: String(err) });
+      });
 
     const configResult = await this.getGuildConfig.execute({ guildId: member.guild.id });
     if (!configResult.ok || !configResult.value.welcomeChannelId) {
@@ -38,7 +43,7 @@ export class GuildMemberAddEvent implements IDiscordEvent<'guildMemberAdd'> {
     const now = new Date();
     const pad = (n: number) => String(n).padStart(2, '0');
     const footerText = `${pad(now.getDate())}/${pad(now.getMonth() + 1)}/${now.getFullYear()} à ${pad(now.getHours())}:${pad(now.getMinutes())}`;
-    const color = Math.floor(Math.random() * 0xffffff);
+    const color = Math.floor(Math.random() * (0xffffff + 1));
 
     const embed = new EmbedBuilder()
       .setTitle(`Bienvenue sur ${member.guild.name} ! 🎉`)
