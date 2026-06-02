@@ -5,6 +5,7 @@ import type { Prefix } from '../value-objects/prefix.vo.js';
 export interface GuildConfigProps {
   guildId: GuildId;
   prefix: Prefix;
+  welcomeChannelId: string | null;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -30,8 +31,18 @@ export class GuildConfig extends Entity<string> {
     return this.props.updatedAt;
   }
 
+  get welcomeChannelId(): string | null {
+    return this.props.welcomeChannelId;
+  }
+
   static create(guildId: GuildId, prefix: Prefix): GuildConfig {
-    return new GuildConfig({ guildId, prefix, createdAt: new Date(), updatedAt: new Date() });
+    return new GuildConfig({
+      guildId,
+      prefix,
+      welcomeChannelId: null,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
   }
 
   static reconstitute(props: GuildConfigProps): GuildConfig {
@@ -40,6 +51,11 @@ export class GuildConfig extends Entity<string> {
 
   updatePrefix(prefix: Prefix): void {
     this.props.prefix = prefix;
+    this.props.updatedAt = new Date();
+  }
+
+  setWelcomeChannel(channelId: string | null): void {
+    this.props.welcomeChannelId = channelId;
     this.props.updatedAt = new Date();
   }
 }
