@@ -1,0 +1,40 @@
+name: Deploy Slash Commands
+
+on:
+  workflow_dispatch:
+    inputs:
+      scope:
+        description: "Deploy scope (guild or global)"
+        required: true
+        default: "guild"
+        type: choice
+        options:
+          - guild
+          - global
+
+jobs:
+  deploy:
+    name: Deploy Commands
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: latest
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm db:generate
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      - run: pnpm deploy:commands
+        env:
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+          DISCORD_CLIENT_ID: ${{ secrets.DISCORD_CLIENT_ID }}
+          DISCORD_GUILD_ID: ${{ inputs.scope == 'guild' && secrets.DISCORD_GUILD_ID || '' }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          LOG_LEVEL: info
+          METRICS_PORT: "9090"
+          NODE_ENV: production
