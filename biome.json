@@ -31,5 +31,17 @@
   },
   "files": {
     "ignore": ["dist/**", "node_modules/**", "src/generated/**", "coverage/**"]
-  }
+  },
+  "overrides": [
+    {
+      "include": ["**/*.test.ts", "**/*.integration.test.ts"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noNonNullAssertion": "off"
+          }
+        }
+      }
+    }
+  ]
 }

@@ -19,7 +19,8 @@
     "db:seed": "tsx prisma/seed.ts",
     "db:studio": "prisma studio",
     "deploy:commands": "tsx src/interface/scripts/deploy-commands.ts",
-    "arch:check": "depcruise --config .dependency-cruiser.cjs src"
+    "arch:check": "depcruise --config .dependency-cruiser.cjs src",
+    "test:integration": "vitest run --config vitest.integration.config.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.0.0",
