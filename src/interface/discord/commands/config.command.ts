@@ -1,9 +1,16 @@
-import { type ChatInputCommandInteraction, EmbedBuilder, SlashCommandBuilder } from 'discord.js';
+import {
+  type ChatInputCommandInteraction,
+  EmbedBuilder,
+  PermissionFlagsBits,
+  SlashCommandBuilder,
+} from 'discord.js';
 import type { UpsertGuildConfigUseCase } from '../../../application/guild/index.js';
 import type { ILogger } from '../../../domain/ports/logger.port.js';
 import type { IDiscordCommand } from './base.command.js';
 
 export class ConfigCommand implements IDiscordCommand {
+  readonly requiredPermissions = [PermissionFlagsBits.ManageGuild];
+
   readonly data = new SlashCommandBuilder()
     .setName('config')
     .setDescription('Configure the bot for this server')

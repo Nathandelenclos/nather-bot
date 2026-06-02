@@ -3,6 +3,7 @@ import type { LogCommandUseCase } from '../../../application/command-log/index.j
 import type { ILogger } from '../../../domain/ports/logger.port.js';
 import type { IMetrics } from '../../../domain/ports/metrics.port.js';
 import type { CommandRegistry } from '../command-registry.js';
+import { checkPermission } from '../guards/permission.guard.js';
 import type { IDiscordEvent } from './base.event.js';
 
 export class InteractionCreateEvent implements IDiscordEvent<'interactionCreate'> {
@@ -22,6 +23,14 @@ export class InteractionCreateEvent implements IDiscordEvent<'interactionCreate'
     const command = this.commandRegistry.get(interaction.commandName);
     if (!command) {
       this.logger.warn('Unknown command', { name: interaction.commandName });
+      return;
+    }
+
+    if (command.requiredPermissions && !checkPermission(interaction, command.requiredPermissions)) {
+      await interaction.reply({
+        content: "Vous n'avez pas les permissions requises pour cette commande.",
+        ephemeral: true,
+      });
       return;
     }
 
